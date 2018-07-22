@@ -35,8 +35,12 @@ const trackingStack = createStackNavigator(
 const eventHistoryStack = createStackNavigator(eventHistoryScreens);
 
 const statisticsStack = createStackNavigator({
-    ...eventHistoryScreens,
-    [STATISTICS]: { screen: StatisticsScreen }
+    [STATISTICS]: { screen: StatisticsScreen },
+    ...eventHistoryScreens
 });
 
-export default trackingStack;
+export default createDrawerNavigator({
+    TrackingsStack: { screen: trackingStack },
+    EventHistoryStack: { screen: eventHistoryStack },
+    StatisticsStack: { screen: statisticsStack }
+});
