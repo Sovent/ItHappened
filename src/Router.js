@@ -1,0 +1,42 @@
+import React, { Component } from 'react';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import {
+    TRACKING_LIST,
+    CREATE_EVENT,
+    CREATE_TRACKING,
+    EDIT_EVENT,
+    EDIT_TRACKING,
+    EVENT,
+    EVENT_HISTORY,
+    STATISTICS
+} from './Screens';
+import TrackingListScreen from './components/TrackingList';
+import CreateEventScreen from './components/CreateEvent';
+import EditEventScreen from './components/EditEvent';
+import EventHistoryScreen from './components/EventHistory';
+import EventScreen from './components/Event';
+import EditTrackingScreen from './components/EditTracking';
+import StatisticsScreen from './components/Statistics';
+
+const eventHistoryScreens = {
+    [EVENT_HISTORY]: { screen: EventHistoryScreen },
+    [EVENT]: { screen: EventScreen },
+    [EDIT_EVENT]: { screen: EditEventScreen },
+}
+
+const trackingStack = createStackNavigator(
+    {
+        [TRACKING_LIST]: { screen: TrackingListScreen },
+        ...eventHistoryScreens,
+        [CREATE_EVENT]: { screen: CreateEventScreen },
+        [EDIT_TRACKING]: { screen: EditTrackingScreen }
+    });
+
+const eventHistoryStack = createStackNavigator(eventHistoryScreens);
+
+const statisticsStack = createStackNavigator({
+    ...eventHistoryScreens,
+    [STATISTICS]: { screen: StatisticsScreen }
+});
+
+export default trackingStack;
