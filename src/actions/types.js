@@ -1,0 +1,1 @@
+export const FETCH_TRACKINGS = 'FETCH_TRACKINGS';

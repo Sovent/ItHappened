@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
+import { connect } from 'react-redux';
 import { CREATE_EVENT } from '../Screens';
+import { fetchTrackings } from '../actions';
 
 class TrackingList extends Component {
+  componentWillMount() {
+    this.props.fetchTrackings('uid');
+  }
+
   render() {
+    console.log(this.props.trackings);
+    
     return (
       <View>
         <Text> Tracking list </Text>
@@ -20,4 +28,8 @@ TrackingList.navigationOptions = {
   title: 'Trackings'
 };
 
-export default TrackingList;
+const mapStateToProps = state => {
+  return { trackings: state.trackings };
+};
+
+export default connect(mapStateToProps, { fetchTrackings })(TrackingList);

@@ -3,12 +3,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import Router from './Router';
+import reducers from './reducers';
 
 class Root extends Component {
   constructor(props) {
     super(props);
 
-    this.store = createStore(() => {}, {}, applyMiddleware(ReduxThunk));
+    this.store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
   }
 
   render() {
