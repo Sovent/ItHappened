@@ -6,12 +6,12 @@ import { fetchTrackings } from '../actions';
 
 class TrackingList extends Component {
   componentWillMount() {
-    this.props.fetchTrackings('uid');
+    this.props.fetchTrackings({ uid: 'uid' });
   }
 
   render() {
     console.log(this.props.trackings);
-    
+
     return (
       <View>
         <Text> Tracking list </Text>
