@@ -10,8 +10,6 @@ class TrackingList extends Component {
   }
 
   render() {
-    console.log(this.props.trackings);
-
     return (
       <View>
         <Text> Tracking list </Text>

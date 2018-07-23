@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import {
     TRACKING_LIST,
     CREATE_EVENT,
@@ -8,7 +8,8 @@ import {
     EDIT_TRACKING,
     EVENT,
     EVENT_HISTORY,
-    STATISTICS
+    STATISTICS,
+    PROFILE
 } from './Screens';
 import TrackingListScreen from './components/TrackingList';
 import CreateEventScreen from './components/CreateEvent';
@@ -17,6 +18,7 @@ import EventHistoryScreen from './components/EventHistory';
 import EventScreen from './components/Event';
 import EditTrackingScreen from './components/EditTracking';
 import StatisticsScreen from './components/Statistics';
+import Profile from './components/Profile';
 
 const eventHistoryScreens = {
     [EVENT_HISTORY]: { screen: EventHistoryScreen },
@@ -39,8 +41,13 @@ const statisticsStack = createStackNavigator({
     ...eventHistoryScreens
 });
 
-export default createDrawerNavigator({
-    TrackingsStack: { screen: trackingStack },
-    EventHistoryStack: { screen: eventHistoryStack },
-    StatisticsStack: { screen: statisticsStack }
+const profileStack = createStackNavigator({
+    [PROFILE]: { screen: Profile }
+});
+
+export default createBottomTabNavigator({
+    Trackings: { screen: trackingStack },
+    EventHistory: { screen: eventHistoryStack },
+    Statistics: { screen: statisticsStack },
+    Profile: { screen: profileStack }
 });

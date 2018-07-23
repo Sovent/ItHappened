@@ -6,3 +6,4 @@ export const EDIT_EVENT = 'EDIT_EVENT';
 export const EDIT_TRACKING = 'EDIT_TRACKING';
 export const EVENT_HISTORY = 'EVENT_HISTORY';
 export const EVENT = 'EVENT';
+export const PROFILE = 'PROFILE';
