@@ -13,6 +13,7 @@ import {
 } from './Screens';
 import TrackingListScreen from './components/TrackingList';
 import CreateEventScreen from './components/CreateEvent';
+import CreateTracking from './components/CreateTracking';
 import EditEventScreen from './components/EditEvent';
 import EventHistoryScreen from './components/EventHistory';
 import EventScreen from './components/Event';
@@ -29,6 +30,7 @@ const eventHistoryScreens = {
 const trackingStack = createStackNavigator(
     {
         [TRACKING_LIST]: { screen: TrackingListScreen },
+        [CREATE_TRACKING]: { screen: CreateTracking },
         ...eventHistoryScreens,
         [CREATE_EVENT]: { screen: CreateEventScreen },
         [EDIT_TRACKING]: { screen: EditTrackingScreen }

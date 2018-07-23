@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { CREATE_EVENT } from '../Screens';
+import { CREATE_TRACKING } from '../Screens';
 import { fetchTrackings } from '../actions';
 
 class TrackingList extends Component {
@@ -14,8 +14,8 @@ class TrackingList extends Component {
       <View>
         <Text> Tracking list </Text>
         <Button
-          title='Create event'
-          onPress={() => this.props.navigation.navigate(CREATE_EVENT)}
+          title='Create tracking'
+          onPress={() => this.props.navigation.navigate(CREATE_TRACKING)}
         />
       </View>
     );
