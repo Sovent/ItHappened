@@ -1,10 +1,19 @@
 const CustomizationType = {
-    RATING: 1,
-    METRIC: 2,
-    COMMENT: 3,
-    PHOTO: 4,
-    GEO: 5
+    RATING: 0,
+    METRIC: 1,
+    COMMENT: 2,
+    PHOTO: 3,
+    GEO: 4
 };
 Object.freeze(CustomizationType);
 
-export { CustomizationType };
+const CustomizationTypes = [
+    CustomizationType.RATING,
+    CustomizationType.METRIC,
+    CustomizationType.COMMENT,
+    CustomizationType.PHOTO,
+    CustomizationType.GEO
+];
+Object.freeze(CustomizationTypes);
+
+export { CustomizationType, CustomizationTypes };

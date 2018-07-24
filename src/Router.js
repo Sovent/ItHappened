@@ -4,6 +4,7 @@ import {
     TRACKING_LIST,
     CREATE_EVENT,
     CREATE_TRACKING,
+    ADD_CUSTOMIZATION,
     EDIT_EVENT,
     EDIT_TRACKING,
     EVENT,
@@ -14,6 +15,7 @@ import {
 import TrackingListScreen from './components/TrackingList';
 import CreateEventScreen from './components/CreateEvent';
 import CreateTracking from './components/CreateTracking';
+import AddCustomization from './components/AddCustomization';
 import EditEventScreen from './components/EditEvent';
 import EventHistoryScreen from './components/EventHistory';
 import EventScreen from './components/Event';
@@ -31,6 +33,7 @@ const trackingStack = createStackNavigator(
     {
         [TRACKING_LIST]: { screen: TrackingListScreen },
         [CREATE_TRACKING]: { screen: CreateTracking },
+        [ADD_CUSTOMIZATION]: { screen: AddCustomization },
         ...eventHistoryScreens,
         [CREATE_EVENT]: { screen: CreateEventScreen },
         [EDIT_TRACKING]: { screen: EditTrackingScreen }

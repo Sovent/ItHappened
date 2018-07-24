@@ -11,10 +11,13 @@ class TrackingRepository {
 
     async addTracking(tracking) {
         const realm = await Realm;
+        const creationDate = new Date();
         realm.write(() => {
             const trackingToAdd = {
                 ...tracking,
-                id: uuidv4()
+                id: uuidv4(),
+                createdAt: creationDate,
+                lastUpdatedAt: creationDate,
             };
             realm.create(TRACKINGS, trackingToAdd);
         });
