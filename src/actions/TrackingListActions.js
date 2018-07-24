@@ -7,6 +7,13 @@ export const fetchTrackings = () => {
     return async (dispatch) => {
         const trackingRepository = new TrackingRepository();
         const trackings = await trackingRepository.getTrackings();
+        trackings.addListener((objects) => {
+            dispatch({
+                type: FETCH_TRACKINGS,
+                payload: objects
+            });
+        });
+        
         dispatch({
             type: FETCH_TRACKINGS,
             payload: trackings
