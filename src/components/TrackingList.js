@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { View, FlatList } from 'react-native';
-import { RkText, RkButton } from 'react-native-ui-kitten';
+import { RkButton } from 'react-native-ui-kitten';
 import { connect } from 'react-redux';
+import TrackingItem from './TrackingItem';
 import { CREATE_TRACKING } from '../Screens';
 import { fetchTrackings } from '../actions';
+import { TrackingListStyle, ItemSeparatorStyle } from '../styles/TrackingListStyles';
 
 class TrackingList extends Component {
   componentWillMount() {
@@ -16,10 +18,7 @@ class TrackingList extends Component {
 
   renderItem({ item }) {
     return (
-      <View>
-        <RkText rkType='primary'>{item.name}</RkText>
-        <RkText>{item.lastUpdatedAt.toISOString()}</RkText>
-      </View>
+      <TrackingItem navigation={this.props.navigation}>{item}</TrackingItem>
     );
   }
 
@@ -31,13 +30,19 @@ class TrackingList extends Component {
     );
   }
 
+  renderSeparator() {
+    return <View style={ItemSeparatorStyle} />;
+  }
+
   render() {
     return (
       <FlatList
-        data={this.props.trackings}
-        renderItem={this.renderItem.bind(this)}
-        keyExtractor={item => item.id}
-        ListFooterComponent={this.renderFooter.bind(this)}
+          style={TrackingListStyle}
+          data={this.props.trackings}
+          renderItem={this.renderItem.bind(this)}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={this.renderSeparator}
+          ListFooterComponent={this.renderFooter.bind(this)}
       />
     );
   }
