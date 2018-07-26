@@ -1,7 +1,8 @@
 const defaultFontSize = 18;
 
 export const Colors = {
-    controlsBackgroundColor: '#1B577E',
+    controlsBackgroundColor: '#1F618D',
+    activeControlBackgroundColor: '#1B577E',
     primaryTextColor: '#111',
     secondaryTextColor: '#333'
 };

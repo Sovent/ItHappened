@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList } from 'react-native';
-import { RkButton } from 'react-native-ui-kitten';
+import { View, FlatList, Button } from 'react-native';
 import { connect } from 'react-redux';
 import TrackingItem from './TrackingItem';
 import { CREATE_TRACKING } from '../Screens';
@@ -24,9 +23,7 @@ class TrackingList extends Component {
 
   renderFooter() {
     return (
-      <RkButton onPress={this.onButtonPress.bind(this)}>
-        Add tracking
-      </RkButton>
+      <Button title="Add" onPress={this.onButtonPress.bind(this)} />
     );
   }
 

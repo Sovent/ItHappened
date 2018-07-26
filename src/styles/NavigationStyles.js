@@ -8,5 +8,6 @@ export const NavigationBarStyle = {
     backgroundColor: CommonStyles.Colors.controlsBackgroundColor
 };
 
+export const ActiveTabBackgroundColor = CommonStyles.Colors.activeControlBackgroundColor;
 export const ActiveTintColor = 'white';
 export const InactiveTintColor = '#EEF';

@@ -1,4 +1,6 @@
+import React from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
     TRACKING_LIST,
     CREATE_EVENT,
@@ -59,6 +61,13 @@ const profileStack = createStyledStackNavigator({
     [PROFILE]: { screen: Profile }
 });
 
+const icons = {
+    Trackings: 'calendar-check',
+    EventHistory: 'history',
+    Statistics: 'trending-up',
+    Profile: 'account'
+};
+
 export default createBottomTabNavigator({
     Trackings: { screen: trackingStack },
     EventHistory: { screen: eventHistoryStack },
@@ -69,6 +78,14 @@ export default createBottomTabNavigator({
     tabBarOptions: {
         style: NavigationStyles.TabbarStyle,
         activeTintColor: NavigationStyles.ActiveTintColor,
-        inactiveTintColor: NavigationStyles.InactiveTintColor
-    }
+        inactiveTintColor: NavigationStyles.InactiveTintColor,
+        activeBackgroundColor: NavigationStyles.ActiveTabBackgroundColor
+    },
+    navigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, tintColor }) => {
+            const iconName = icons[navigation.state.routeName];
+            const size = focused ? 27 : 25;
+            return <Icon name={iconName} size={size} color={tintColor} />;        
+        }
+    })
 });
