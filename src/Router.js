@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import {
     TRACKING_LIST,
@@ -22,14 +21,24 @@ import EventScreen from './components/Event';
 import EditTrackingScreen from './components/EditTracking';
 import StatisticsScreen from './components/Statistics';
 import Profile from './components/Profile';
+import * as NavigationStyles from './styles/NavigationStyles';
 
 const eventHistoryScreens = {
     [EVENT_HISTORY]: { screen: EventHistoryScreen },
     [EVENT]: { screen: EventScreen },
     [EDIT_EVENT]: { screen: EditEventScreen },
-}
+};
 
-const trackingStack = createStackNavigator(
+const createStyledStackNavigator = (routeConfig) => {
+    return createStackNavigator(routeConfig, {
+        navigationOptions: {
+            headerStyle: NavigationStyles.NavigationBarStyle,
+            headerTintColor: NavigationStyles.ActiveTintColor
+        }
+    });
+};
+
+const trackingStack = createStyledStackNavigator(
     {
         [TRACKING_LIST]: { screen: TrackingListScreen },
         [CREATE_TRACKING]: { screen: CreateTracking },
@@ -39,14 +48,14 @@ const trackingStack = createStackNavigator(
         [EDIT_TRACKING]: { screen: EditTrackingScreen }
     });
 
-const eventHistoryStack = createStackNavigator(eventHistoryScreens);
+const eventHistoryStack = createStyledStackNavigator(eventHistoryScreens);
 
-const statisticsStack = createStackNavigator({
+const statisticsStack = createStyledStackNavigator({
     [STATISTICS]: { screen: StatisticsScreen },
     ...eventHistoryScreens
 });
 
-const profileStack = createStackNavigator({
+const profileStack = createStyledStackNavigator({
     [PROFILE]: { screen: Profile }
 });
 
@@ -55,4 +64,11 @@ export default createBottomTabNavigator({
     EventHistory: { screen: eventHistoryStack },
     Statistics: { screen: statisticsStack },
     Profile: { screen: profileStack }
+},
+{
+    tabBarOptions: {
+        style: NavigationStyles.TabbarStyle,
+        activeTintColor: NavigationStyles.ActiveTintColor,
+        inactiveTintColor: NavigationStyles.InactiveTintColor
+    }
 });

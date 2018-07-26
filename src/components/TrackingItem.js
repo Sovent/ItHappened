@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableHighlight } from 'react-native';
-import { RkText } from 'react-native-ui-kitten';
+import { View, TouchableHighlight, Text } from 'react-native';
+import moment from 'moment';
 import { TrackingListItemStyle } from '../styles/TrackingListStyles';
 import { CREATE_EVENT } from '../Screens';
 
@@ -9,18 +9,28 @@ class TrackingItem extends Component {
         this.props.navigation.navigate(CREATE_EVENT);
     }
 
+    renderHumanReadableDate(item) {
+        return `Last updated: ${moment().from(item.lastUpdatedAt)}`;
+    }
+
     render() {
+        const item = this.props.children;
         return (
             <TouchableHighlight onPress={this.onItemPressed.bind(this)}>
                 <View style={TrackingListItemStyle.container}>
                     <View style={TrackingListItemStyle.color} />
                     <View style={TrackingListItemStyle.content}>
-                        <RkText style={TrackingListItemStyle.trackingNameLabel}>
-                            {this.props.children.name}
-                        </RkText>
-                        <RkText style={TrackingListItemStyle.updatedLabel}>
-                            {this.props.children.lastUpdatedAt.toISOString()}
-                        </RkText>
+                        <Text style={TrackingListItemStyle.trackingNameLabel}>
+                            {item.name}
+                        </Text>
+                        <View style={TrackingListItemStyle.metadata}>
+                            <Text style={TrackingListItemStyle.eventsCountLabel}>
+                                Events count: 5
+                            </Text>
+                            <Text style={TrackingListItemStyle.updatedLabel}>
+                                {this.renderHumanReadableDate(item)}
+                            </Text>
+                        </View>                        
                     </View>
                 </View>
             </TouchableHighlight>

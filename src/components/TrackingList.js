@@ -53,7 +53,52 @@ TrackingList.navigationOptions = {
 };
 
 const mapStateToProps = state => {
-  return { trackings: state.trackings.list };
+  return {
+    trackings: [
+      {
+        id: '1',
+        name: 'Vypil chayu',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '2',
+        name: 'Umer',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '3',
+        name: 'Vyzhil',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '4',
+        name: 'Poznal bol',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '11',
+        name: 'Vypil chayu',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '12',
+        name: 'Umer',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '13',
+        name: 'Vyzhil',
+        lastUpdatedAt: new Date()
+      },
+      {
+        id: '14',
+        name: 'Poznal bol',
+        lastUpdatedAt: new Date()
+      }
+    ]
+  };
+
+  //return { trackings: state.trackings.list };
 };
 
 export default connect(mapStateToProps, { fetchTrackings })(TrackingList);
