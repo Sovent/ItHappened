@@ -61,19 +61,30 @@ const profileStack = createStyledStackNavigator({
     [PROFILE]: { screen: Profile }
 });
 
-const icons = {
-    Trackings: 'calendar-check',
-    EventHistory: 'history',
-    Statistics: 'trending-up',
-    Profile: 'account'
+const tabData = {
+    Trackings: {
+        screen: trackingStack,
+        title: 'Events',
+        icon: 'calendar-check'
+    },
+    EventHistory: {
+        screen: eventHistoryStack,
+        title: 'History',
+        icon: 'history'
+    },
+    Statistics: {
+        screen: statisticsStack,
+        title: 'Statistics',
+        icon: 'trending-up'
+    },
+    Profile: {
+        screen: profileStack,
+        title: 'Profile',
+        icon: 'account'
+    }
 };
 
-export default createBottomTabNavigator({
-    Trackings: { screen: trackingStack },
-    EventHistory: { screen: eventHistoryStack },
-    Statistics: { screen: statisticsStack },
-    Profile: { screen: profileStack }
-},
+export default createBottomTabNavigator(tabData,
 {
     tabBarOptions: {
         style: NavigationStyles.TabbarStyle,
@@ -83,9 +94,10 @@ export default createBottomTabNavigator({
     },
     navigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
-            const iconName = icons[navigation.state.routeName];
+            const iconName = tabData[navigation.state.routeName].icon;
             const size = focused ? 27 : 25;
             return <Icon name={iconName} size={size} color={tintColor} />;        
-        }
+        },
+        title: tabData[navigation.state.routeName].title
     })
 });

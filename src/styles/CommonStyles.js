@@ -4,7 +4,8 @@ export const Colors = {
     controlsBackgroundColor: '#1F618D',
     activeControlBackgroundColor: '#1B577E',
     primaryTextColor: '#111',
-    secondaryTextColor: '#333'
+    secondaryTextColor: '#333',
+    actionColor: 'rgba(204,22,20,0.8)'
 };
 
 export const TextSizes = {

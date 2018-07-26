@@ -1,12 +1,42 @@
 import * as CommonStyles from './CommonStyles';
 
 export const TrackingListStyle = {
-    ...CommonStyles.containerStyle,
-    backgroundColor: CommonStyles.Colors.screenBackgroundColor
+    ...CommonStyles.containerStyle
 };
 
 export const ItemSeparatorStyle = {
     height: 10
+};
+
+export const ActionButtonStyle = {
+    buttonColor: CommonStyles.Colors.actionColor
+};
+
+export const EmptyListStyle = {
+    container: {
+        marginTop: '50%',
+        justifyContent: 'center'
+    },
+    text: {
+        fontSize: CommonStyles.TextSizes.Medium,
+        color: CommonStyles.Colors.secondaryTextColor,
+        textAlign: 'center'
+    },
+    buttonContainer: {
+        ...CommonStyles.containerStyle,
+        ...CommonStyles.tileStyle,
+        borderColor: CommonStyles.Colors.actionColor,
+        backgroundColor: CommonStyles.Colors.actionColor,
+        marginTop: 20,
+        marginLeft: 40,
+        marginRight: 40
+    },
+    buttonText: {
+        fontSize: CommonStyles.TextSizes.Medium,
+        fontWeight: 'bold',
+        color: 'white',
+        textAlign: 'center'
+    }
 };
 
 export const TrackingListItemStyle = {
@@ -14,7 +44,7 @@ export const TrackingListItemStyle = {
         ...CommonStyles.tileStyle,
         flexDirection: 'row',
         backgroundColor: 'white',
-        borderLeftColor: 'red',
+        justifyContent: 'center'
     },
     color: {
         width: 10,
