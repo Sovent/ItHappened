@@ -7,6 +7,7 @@ const trackingSchema = {
     properties: {
         id: 'string',
         name: 'string',
+        color: 'string',
         createdAt: 'date',
         lastUpdatedAt: { type: 'date', indexed: true },
         mandatoryCustomizations: 'int[]',

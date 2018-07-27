@@ -85,19 +85,23 @@ const tabData = {
 };
 
 export default createBottomTabNavigator(tabData,
-{
-    tabBarOptions: {
-        style: NavigationStyles.TabbarStyle,
-        activeTintColor: NavigationStyles.ActiveTintColor,
-        inactiveTintColor: NavigationStyles.InactiveTintColor,
-        activeBackgroundColor: NavigationStyles.ActiveTabBackgroundColor
-    },
-    navigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, tintColor }) => {
-            const iconName = tabData[navigation.state.routeName].icon;
-            const size = focused ? 27 : 25;
-            return <Icon name={iconName} size={size} color={tintColor} />;        
+    {
+        tabBarOptions: {
+            style: NavigationStyles.TabbarStyle,
+            activeTintColor: NavigationStyles.ActiveTintColor,
+            inactiveTintColor: NavigationStyles.InactiveTintColor,
+            activeBackgroundColor: NavigationStyles.ActiveTabBackgroundColor
         },
-        title: tabData[navigation.state.routeName].title
-    })
-});
+        navigationOptions: ({ navigation }) => {
+            console.log(navigation);
+            return {
+                tabBarIcon: ({ focused, tintColor }) => {
+                    const iconName = tabData[navigation.state.routeName].icon;
+                    const size = focused ? 27 : 25;
+                    return <Icon name={iconName} size={size} color={tintColor} />;
+                },
+                title: tabData[navigation.state.routeName].title,
+                tabBarVisible: navigation.state.index < 1
+            };
+        }
+    });

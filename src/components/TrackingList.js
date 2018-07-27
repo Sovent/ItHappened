@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Button, Text, TouchableHighlight } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import TrackingItem from './TrackingItem';

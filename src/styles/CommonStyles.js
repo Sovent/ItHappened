@@ -3,9 +3,11 @@ const defaultFontSize = 18;
 export const Colors = {
     controlsBackgroundColor: '#1F618D',
     activeControlBackgroundColor: '#1B577E',
-    primaryTextColor: '#111',
+    primaryTextColor: '#222',
     secondaryTextColor: '#333',
-    actionColor: 'rgba(204,22,20,0.8)'
+    actionColor: 'rgba(204,22,20,1)',
+    linkTextColor: '#1F618D',
+    headerBackgroundColor: '#42677F'
 };
 
 export const TextSizes = {

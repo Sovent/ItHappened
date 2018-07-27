@@ -4,6 +4,7 @@ import {
 
 const INITIAL_STATE = {
     trackingName: '',
+    trackingColor: '#85CEFF',
     mandatoryCustomizations: [],
     optionalCustomizations: [],
     metricMeasurement: null

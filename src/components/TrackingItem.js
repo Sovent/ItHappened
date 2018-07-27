@@ -18,7 +18,10 @@ class TrackingItem extends Component {
         return (
             <TouchableHighlight onPress={this.onItemPressed.bind(this)}>
                 <View style={TrackingListItemStyle.container}>
-                    <View style={TrackingListItemStyle.color} />
+                    <View
+                        style={TrackingListItemStyle.color}
+                        backgroundColor={item.color}
+                    />
                     <View style={TrackingListItemStyle.content}>
                         <Text style={TrackingListItemStyle.trackingNameLabel}>
                             {item.name}
@@ -30,7 +33,7 @@ class TrackingItem extends Component {
                             <Text style={TrackingListItemStyle.updatedLabel}>
                                 {this.renderHumanReadableDate(item)}
                             </Text>
-                        </View>                        
+                        </View>
                     </View>
                 </View>
             </TouchableHighlight>

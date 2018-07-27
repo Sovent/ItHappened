@@ -62,7 +62,8 @@ export const TrackingListItemStyle = {
     trackingNameLabel: {
         fontSize: CommonStyles.TextSizes.Large,
         color: CommonStyles.Colors.primaryTextColor,
-        lineHeight: CommonStyles.TextSizes.Large * 2
+        lineHeight: CommonStyles.TextSizes.Large * 1.5,
+        marginBottom: 10
     },
     eventsCountLabel: {
         fontSize: CommonStyles.TextSizes.Tiny,

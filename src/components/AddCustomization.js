@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text, Button, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import {
-  RkCard, RkText, RkTextInput, RkButton, RkChoiceGroup, RkChoice
-} from 'react-native-ui-kitten';
 import { ADD_CUSTOMIZATION, TRACKING_LIST } from '../Screens';
 import { updateCreateTrackingForm, createTracking } from '../actions';
 import { CustomizationType, CustomizationTypes } from '../persistence/DTO';
@@ -57,7 +54,11 @@ class AddCustomization extends Component {
 
   onGoButtonPressed() {
     const { 
-      trackingName, mandatoryCustomizations, optionalCustomizations, metricMeasurement
+      trackingName,
+      trackingColor, 
+      mandatoryCustomizations, 
+      optionalCustomizations, 
+      metricMeasurement
     } = this.props;
     const removeCurrent = (customizations) => {      
       return customizations.filter(value => value !== this.currentCustomization);
@@ -95,6 +96,7 @@ class AddCustomization extends Component {
     } else {
       this.props.createTracking({
         name: trackingName,
+        color: trackingColor,
         ...updatedCustomizations,
         metricMeasurement
       });
@@ -123,7 +125,7 @@ class AddCustomization extends Component {
   renderMetricMeasurementInput() {
     if (this.needToRenderMeasurementInput()) {
       return (
-        <RkTextInput
+        <TextInput
           placeholder='millimeters'
           onChangeText={this.onMetricMeasurementChanged.bind(this)}
           value={this.props.metricMeasurement}
@@ -136,42 +138,35 @@ class AddCustomization extends Component {
 
   render() {
     return (
-      <RkCard>
-        <View rkCardHeader>
-          <RkText>{this.customizationData.header}</RkText>
+      <View>
+        <View>
+          <Text>{this.customizationData.header}</Text>
         </View>
-        <View rkCardContent>
-          <RkText>{this.customizationData.hintText}</RkText>
-          <RkChoiceGroup
-            selectedIndex={this.customizationStatus}
-            onChange={this.changeStatus.bind(this)}
-            radio
-          >
-            <TouchableOpacity choiceTrigger>
+        <View>
+          <Text>{this.customizationData.hintText}</Text>
+          <View>
+            <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <RkChoice rkType='radio' />
-                <RkText>Disabled</RkText>
+                <Text>Disabled</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity choiceTrigger>
+            <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <RkChoice rkType='radio' />
-                <RkText>Optional</RkText>
+                <Text>Optional</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity choiceTrigger>
+            <TouchableOpacity>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <RkChoice rkType='radio' />
-                <RkText>Mandatory</RkText>
+                <Text>Mandatory</Text>
               </View>
             </TouchableOpacity>
-          </RkChoiceGroup>
+          </View>
           {this.renderMetricMeasurementInput()}
         </View>
-        <View rkCardFooter>
-          <RkButton onPress={this.onGoButtonPressed.bind(this)}>Go next</RkButton>
+        <View>
+          <Button title='Go next' onPress={this.onGoButtonPressed.bind(this)} />
         </View>
-      </RkCard>
+      </View>
     );
   }
 }
@@ -179,6 +174,7 @@ class AddCustomization extends Component {
 const mapStateToProps = (state) => {
   const {
     trackingName,
+    trackingColor,
     mandatoryCustomizations,
     optionalCustomizations,
     metricMeasurement
@@ -186,6 +182,7 @@ const mapStateToProps = (state) => {
 
   return {
     trackingName,
+    trackingColor,
     mandatoryCustomizations,
     optionalCustomizations,
     metricMeasurement
