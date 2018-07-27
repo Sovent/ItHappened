@@ -93,7 +93,6 @@ export default createBottomTabNavigator(tabData,
             activeBackgroundColor: NavigationStyles.ActiveTabBackgroundColor
         },
         navigationOptions: ({ navigation }) => {
-            console.log(navigation);
             return {
                 tabBarIcon: ({ focused, tintColor }) => {
                     const iconName = tabData[navigation.state.routeName].icon;

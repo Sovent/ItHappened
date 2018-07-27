@@ -1,6 +1,7 @@
-import { 
-    FETCH_TRACKINGS, CREATE_TRACKING_PROPERTY_CHANGED 
+import {
+    FETCH_TRACKINGS, CREATE_TRACKING_PROPERTY_CHANGED, TRACKING_CREATED
 } from './types';
+import { CustomizationTypes, CustomizationStatus } from '../persistence/DTO';
 import TrackingRepository from '../persistence/TrackingRepository';
 
 export const fetchTrackings = () => {
@@ -13,7 +14,7 @@ export const fetchTrackings = () => {
                 payload: objects
             });
         });
-        
+
         dispatch({
             type: FETCH_TRACKINGS,
             payload: trackings
@@ -30,19 +31,21 @@ export const updateCreateTrackingForm = (update) => {
 
 export const createTracking = (tracking) => {
     return async (dispatch) => {
+        const mandatoryCustomizations = CustomizationTypes
+            .filter(type => tracking.customizations[type] === CustomizationStatus.MANDATORY);
+        const optionalCustomizations = CustomizationTypes
+            .filter(type => tracking.customizations[type] === CustomizationStatus.OPTIONAL);
+        const trackingToAdd = {
+            name: tracking.trackingName,
+            color: tracking.trackingColor,
+            mandatoryCustomizations,
+            optionalCustomizations,
+            metricMeasurement: tracking.metricMeasurement
+        };
+
         const trackingRepository = new TrackingRepository();
-        await trackingRepository.addTracking(tracking);
-        dispatch(
-            {
-                type: CREATE_TRACKING_PROPERTY_CHANGED,
-                payload: {
-                    trackingName: '',
-                    mandatoryCustomizations: [],
-                    optionalCustomizations: [],
-                    metricMeasurement: null
-                }
-            }
-        );
+        await trackingRepository.addTracking(trackingToAdd);
+        dispatch({ type: TRACKING_CREATED });
     };
 };
 

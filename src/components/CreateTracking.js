@@ -78,7 +78,7 @@ class CreateTracking extends Component {
           </Text>
         </View>
         <View style={Styles.content}>
-          <View style={Styles.contentTile}>
+          <View>
             <View style={Styles.formLabelContainer}>
               <Text style={Styles.formLabel}>Name it, e.g. </Text>
               {this.renderEgLabel.bind(this)()}
@@ -93,7 +93,7 @@ class CreateTracking extends Component {
               placeholder='This should answer "What happened?"'
             />
           </View>
-          <View style={Styles.contentTile}>
+          <View>
             <Text style={Styles.formLabel}>Pick a color for it</Text>
             <HueSlider
               style={Styles.colorSlider}
@@ -116,8 +116,7 @@ class CreateTracking extends Component {
 }
 
 CreateTracking.navigationOptions = {
-  title: 'Create tracking',
-  tabBarVisible: false
+  title: 'Track event, step 1 of 6'
 };
 
 const mapStateToProps = (state) => {

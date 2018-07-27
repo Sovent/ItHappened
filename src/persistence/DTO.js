@@ -16,4 +16,11 @@ const CustomizationTypes = [
 ];
 Object.freeze(CustomizationTypes);
 
-export { CustomizationType, CustomizationTypes };
+const CustomizationStatus = {
+    DISABLED: 0,
+    OPTIONAL: 1,
+    MANDATORY: 2
+};
+Object.freeze(CustomizationStatus);
+
+export { CustomizationType, CustomizationTypes, CustomizationStatus };

@@ -1,8 +1,9 @@
 import * as CommonStyles from './CommonStyles';
 
-export const CreateTrackingStyle = {
+const inheritStyles = {
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     headerContainer: {
         ...CommonStyles.containerStyle,
@@ -19,28 +20,39 @@ export const CreateTrackingStyle = {
         flex: 5,
         justifyContent: 'space-between'
     },
+    formInputContainer: {
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: CommonStyles.defaultInnerMargin
+    },
+    formInput: {
+        fontSize: CommonStyles.TextSizes.Medium,
+        color: CommonStyles.Colors.primaryTextColor,
+        marginLeft: 0,
+        marginRight: 0   
+    },
+    formLabel: {
+        fontSize: CommonStyles.TextSizes.Large,
+        marginBottom: CommonStyles.defaultInnerMargin,
+        color: CommonStyles.Colors.primaryTextColor
+    },
+    proceedButtonColor: CommonStyles.Colors.controlsBackgroundColor,
+    proceedButtonStyle: {
+        ...CommonStyles.tileStyle,
+        borderColor: CommonStyles.Colors.controlsBackgroundColor,
+        width: 200,
+        alignSelf: 'center'
+    }
+};
+export const CreateTrackingStyle = {
+    ...inheritStyles,
     formLabelContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
     },
-    formInputContainer: {
-        marginLeft: 0,
-        marginRight: 0,
-        paddingLeft: 0,
-        paddingRight: 0
-    },
-    formInput: {
-        fontSize: CommonStyles.TextSizes.Medium,
-        color: CommonStyles.Colors.primaryTextColor   
-    },
-    formLabel: {
-        fontSize: CommonStyles.TextSizes.Large,
-        marginBottom: 8,
-        color: CommonStyles.Colors.primaryTextColor
-    },
     egBadge: {
-        marginBottom: 8,
-        marginRight: 8,
+        marginBottom: CommonStyles.defaultInnerMargin,
+        marginRight: CommonStyles.defaultInnerMargin,
         borderColor: CommonStyles.Colors.linkTextColor,
         borderWidth: 1,
         backgroundColor: 'transparent'
@@ -52,12 +64,49 @@ export const CreateTrackingStyle = {
     },
     colorSlider: {
         alignSelf: 'stretch',
+    }
+};
+
+export const AddCustomizationStyle = {
+    ...inheritStyles,
+    hintText: {
+        fontSize: CommonStyles.TextSizes.Large,
+        color: CommonStyles.Colors.primaryTextColor
     },
-    proceedButtonColor: CommonStyles.Colors.controlsBackgroundColor,
-    proceedButtonStyle: {
+    choiceContainer: {
+        ...CommonStyles.containerStyle,
+        paddingHorizontal: 0
+    },
+    buttonGroupContainerStyle: {
         ...CommonStyles.tileStyle,
-        borderColor: CommonStyles.Colors.controlsBackgroundColor,
-        width: 200,
-        alignSelf: 'center'
+        borderWidth: 1,
+        backgroundColor: 'white',
+        marginBottom: CommonStyles.defaultInnerMargin
+    },
+    buttonGroupTextStyle: {
+        color: CommonStyles.Colors.secondaryTextColor,
+        fontSize: CommonStyles.TextSizes.Medium
+    },
+    buttonGroupSelectedButtonStyle: {
+        backgroundColor: CommonStyles.Colors.activeControlBackgroundColor,
+        borderColor: CommonStyles.Colors.activeControlBackgroundColor
+    },
+    buttonGroupSelectedTextStyle: {
+        color: 'white'
+    },
+    statusHint: {
+        color: CommonStyles.Colors.secondaryTextColor,
+        fontSize: CommonStyles.TextSizes.Small
+    },
+    finishButtonColor: CommonStyles.Colors.actionColor,
+    illustrationContainerStyle: {
+        ...CommonStyles.containerStyle,
+        ...CommonStyles.tileStyle,
+        alignSelf: 'center',
+        alignItems: 'center'
+    },
+    illustrationHeaderStyle: {
+        color: CommonStyles.Colors.primaryTextColor,
+        fontSize: CommonStyles.TextSizes.Large
     }
 };

@@ -1,5 +1,7 @@
 const defaultFontSize = 18;
 
+export const defaultInnerMargin = 8;
+
 export const Colors = {
     controlsBackgroundColor: '#1F618D',
     activeControlBackgroundColor: '#1B577E',
@@ -11,8 +13,8 @@ export const Colors = {
 };
 
 export const TextSizes = {
-    ExtraLarge: defaultFontSize * 1.6,
-    Large: defaultFontSize * 1.4,
+    ExtraLarge: defaultFontSize * 1.5,
+    Large: defaultFontSize * 1.3,
     Medium: defaultFontSize,
     Small: defaultFontSize * 0.8,
     Tiny: defaultFontSize * 0.6

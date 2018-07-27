@@ -1,107 +1,107 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, Button, TextInput } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import { Button, ButtonGroup, FormInput, Rating } from 'react-native-elements';
 import { ADD_CUSTOMIZATION, TRACKING_LIST } from '../Screens';
 import { updateCreateTrackingForm, createTracking } from '../actions';
-import { CustomizationType, CustomizationTypes } from '../persistence/DTO';
+import {
+  CustomizationType, CustomizationTypes, CustomizationStatus
+} from '../persistence/DTO';
+import { AddCustomizationStyle as Styles } from '../styles/CreateTrackingStyles';
 
 const customizationsData = {
   [CustomizationType.RATING]: {
     header: 'Do you want to rate this event from 1 to 5?',
-    hintText: "This is useful in tracking events such as 'Went to the movie' or 'Tasted new dish'"
+    hintText: "This is useful in tracking events such as 'Went to the movie' or 'Tasted new dish'",
+    illustration: ({ trackingName }) => (
+      <View style={Styles.illustrationContainerStyle}>
+        <Text style={Styles.illustrationHeaderStyle}>{trackingName}</Text>
+        <Rating
+          readonly
+          imageSize={50} 
+          startingValue={3.5}
+        />
+      </View>
+    )
   },
   [CustomizationType.METRIC]: {
     header: 'Do you want to measure you event somehow?',
-    hintText: 'You can count your daily push-ups or minutes spent practicing guitar'
+    hintText: 'You can count your daily push-ups or minutes spent practicing guitar',
+    illustration: () => (
+      <View>
+        <Text>Metric illustration</Text>
+      </View>
+    )
   },
   [CustomizationType.COMMENT]: {
     header: 'Would you like to leave comments?',
-    hintText: 'You can describe an event or circumstances which it has occured in'
+    hintText: 'You can describe an event or circumstances which it has occured in',
+    illustration: (
+      <View>
+        <Text>Comment illustration</Text>
+      </View>
+    )
   },
   [CustomizationType.PHOTO]: {
     header: 'How about picturing your event?',
-    hintText: 'You\'ll be able to attach a photo, that visualizes the event perfectly'
+    hintText: 'You\'ll be able to attach a photo, that visualizes the event perfectly',
+    illustration: (
+      <View>
+        <Text>Photo illustration</Text>
+      </View>
+    )
   },
   [CustomizationType.GEO]: {
-    header: 'Do you want to drop geo-tag on the event',
-    hintText: 'If event\'s location matters, you can save it as a part of your event'
+    header: 'Do you want to drop geo-tag on the event?',
+    hintText: 'If event\'s location matters, you can save it as a part of your event',
+    illustration: (
+      <View>
+        <Text>Geo illustration</Text>
+      </View>
+    )
   }
 };
 
-const CustomizationStatus = {
-  Disabled: 0,
-  Optional: 1,
-  Mandatory: 2
+const StatusHints = {
+  [CustomizationStatus.DISABLED]:
+    'You\'ll not be asked to fill this. You can change this later',
+  [CustomizationStatus.OPTIONAL]:
+    'You\'ll be able to skip filling this. You can change this later',
+  [CustomizationStatus.MANDATORY]:
+    'You won\'t be able to create event without filling this. You can change this later'
 };
 
 class AddCustomization extends Component {
-  constructor(props) {
-    super(props);
-
-    this.customizationStatus = CustomizationStatus.Disabled;
-  }
-
-  componentWillMount() {
-    this.currentCustomization = this.props.navigation.getParam('type', CustomizationTypes[0]);
-    this.customizationData = customizationsData[this.currentCustomization];
-    if (this.props.mandatoryCustomizations.includes(this.currentCustomization)) {
-      this.customizationStatus = CustomizationStatus.Mandatory;
+  onProceedButtonPressed() {
+    const { currentCustomization, needToShowMetricInput, metricMeasurement } = this.props;
+    if (needToShowMetricInput && (metricMeasurement === null || metricMeasurement === '')) {
+      this.metricInput.shake();
+      return;
     }
-    if (this.props.optionalCustomizations.includes(this.currentCustomization)) {
-      this.customizationStatus = CustomizationStatus.Optional;
-    }
-  }
 
-  onGoButtonPressed() {
-    const { 
-      trackingName,
-      trackingColor, 
-      mandatoryCustomizations, 
-      optionalCustomizations, 
-      metricMeasurement
-    } = this.props;
-    const removeCurrent = (customizations) => {      
-      return customizations.filter(value => value !== this.currentCustomization);
-    };
-    
-    let updatedCustomizations;
-    switch (this.customizationStatus) {
-      case CustomizationStatus.Mandatory:
-        updatedCustomizations = {
-          mandatoryCustomizations: removeCurrent(mandatoryCustomizations)
-            .concat(this.currentCustomization),
-          optionalCustomizations: removeCurrent(optionalCustomizations)
-        };
-        break;
-      case CustomizationStatus.Optional:
-        updatedCustomizations = {
-          mandatoryCustomizations: removeCurrent(mandatoryCustomizations),
-          optionalCustomizations: removeCurrent(optionalCustomizations)
-            .concat(this.currentCustomization)
-        };
-        break;
-      default:
-        updatedCustomizations = {
-          mandatoryCustomizations: removeCurrent(mandatoryCustomizations),
-          optionalCustomizations: removeCurrent(optionalCustomizations)
-        };
-        break;
-    }
-    this.props.updateCreateTrackingForm(updatedCustomizations);
-    const nextCustomization = this.currentCustomization + 1;
-    if (CustomizationTypes.length > nextCustomization) {
+    const nextCustomization = currentCustomization + 1;
+    if (!this.props.isLastScreen) {
       this.props.navigation.push(ADD_CUSTOMIZATION, {
         type: nextCustomization
       });
-    } else {
-      this.props.createTracking({
-        name: trackingName,
-        color: trackingColor,
-        ...updatedCustomizations,
-        metricMeasurement
-      });
-      this.props.navigation.navigate(TRACKING_LIST);
     }
+  }
+
+  onFinishButtonPressed() {
+    const {
+      trackingName,
+      trackingColor,
+      customizations,
+      metricMeasurement
+    } = this.props;
+
+    this.props.createTracking({
+      trackingName,
+      trackingColor,
+      customizations,
+      metricMeasurement
+    });
+    this.props.navigation.navigate(TRACKING_LIST);
   }
 
   onMetricMeasurementChanged(text) {
@@ -110,82 +110,124 @@ class AddCustomization extends Component {
     });
   }
 
-  needToRenderMeasurementInput() {
-    return this.currentCustomization === CustomizationType.METRIC
-      && this.customizationStatus !== CustomizationStatus.Disabled;
-  }
-  
   changeStatus(index) {
-    this.customizationStatus = index;
-    if (this.needToRenderMeasurementInput) {
-      this.forceUpdate();
-    }
+    this.props.updateCreateTrackingForm({
+      customizations: {
+        ...this.props.customizations,
+        [this.props.currentCustomization]: index
+      }
+    });
   }
 
   renderMetricMeasurementInput() {
-    if (this.needToRenderMeasurementInput()) {
+    if (this.props.needToShowMetricInput) {
       return (
-        <TextInput
-          placeholder='millimeters'
-          onChangeText={this.onMetricMeasurementChanged.bind(this)}
-          value={this.props.metricMeasurement}
+        <View>
+          <Text style={Styles.formLabel}>Specify units</Text>
+          <FormInput
+            ref={input => { this.metricInput = input; }}
+            containerStyle={Styles.formInputContainer}
+            inputStyle={Styles.formInput}
+            maxLength={50}
+            placeholder='millimeters'
+            onChangeText={this.onMetricMeasurementChanged.bind(this)}
+            value={this.props.metricMeasurement}
+          />
+        </View>
+      );
+    }
+
+    return <View />;
+  }
+
+  renderButton() {
+    if (this.props.isLastScreen) {
+      return (
+        <Button
+          title='Finish'
+          onPress={this.onFinishButtonPressed.bind(this)}
+          containerViewStyle={Styles.proceedButtonStyle}
+          backgroundColor={Styles.finishButtonColor}
         />
       );
     }
-    
-    return <View />;
+
+    return (
+      <Button
+        title='Proceed'
+        iconRight={{ name: 'arrow-forward' }}
+        onPress={this.onProceedButtonPressed.bind(this)}
+        containerViewStyle={Styles.proceedButtonStyle}
+        backgroundColor={Styles.proceedButtonColor}
+      />
+    );
   }
 
   render() {
     return (
-      <View>
-        <View>
-          <Text>{this.customizationData.header}</Text>
+      <View style={Styles.container}>
+        <View style={Styles.headerContainer}>
+          <Text style={Styles.headerText}>{this.props.customizationData.header}</Text>
         </View>
-        <View>
-          <Text>{this.customizationData.hintText}</Text>
+        <View style={Styles.content}>
+          <Text style={Styles.hintText}>{this.props.customizationData.hintText}</Text>
+          {this.props.customizationData.illustration(this.props)}
           <View>
-            <TouchableOpacity>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text>Disabled</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text>Optional</Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text>Mandatory</Text>
-              </View>
-            </TouchableOpacity>
+            <View style={Styles.choiceContainer}>
+              <ButtonGroup
+                buttons={['Disabled', 'Optional', 'Required']}
+                onPress={this.changeStatus.bind(this)}
+                containerStyle={Styles.buttonGroupContainerStyle}
+                buttonStyle={Styles.buttonGroupButtonStyle}
+                textStyle={Styles.buttonGroupTextStyle}
+                selectedTextStyle={Styles.buttonGroupSelectedTextStyle}
+                selectedButtonStyle={Styles.buttonGroupSelectedButtonStyle}
+                selectedIndex={this.props.customizationStatus}
+              />
+              {this.renderMetricMeasurementInput()}
+              <Text style={Styles.statusHint}>{StatusHints[this.props.customizationStatus]}</Text>
+            </View>
+            {this.renderButton()}
           </View>
-          {this.renderMetricMeasurementInput()}
-        </View>
-        <View>
-          <Button title='Go next' onPress={this.onGoButtonPressed.bind(this)} />
         </View>
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+AddCustomization.navigationOptions = ({ navigation }) => {
+  const currentStep = navigation.getParam('type', CustomizationTypes[0]) + 2;
+  const totalSteps = CustomizationTypes.length + 1;
+  return {
+    title: `Track event, step ${currentStep} of ${totalSteps}`
+  };
+};
+
+const mapStateToProps = (state, ownProps) => {
   const {
     trackingName,
     trackingColor,
-    mandatoryCustomizations,
-    optionalCustomizations,
+    customizations,
     metricMeasurement
   } = state.createTrackingForm;
+
+  const currentCustomization = ownProps.navigation.getParam('type', CustomizationTypes[0]);
+  const customizationData = customizationsData[currentCustomization];
+  const customizationStatus = customizations[currentCustomization];
+  const needToShowMetricInput = currentCustomization === CustomizationType.METRIC
+    && customizationStatus !== CustomizationStatus.DISABLED;
+  const isLastScreen = CustomizationTypes.length === currentCustomization + 1;
 
   return {
     trackingName,
     trackingColor,
-    mandatoryCustomizations,
-    optionalCustomizations,
-    metricMeasurement
+    customizations,
+    metricMeasurement,
+    currentCustomization,
+    customizationData,
+    customizationStatus,
+    needToShowMetricInput,
+    isLastScreen
   };
 };
 
