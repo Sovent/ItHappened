@@ -20,6 +20,9 @@ const inheritStyles = {
         flex: 5,
         justifyContent: 'space-between'
     },
+    block: {
+        marginBottom: CommonStyles.defaultInnerMargin
+    },
     formInputContainer: {
         marginLeft: 0,
         marginRight: 0,
@@ -29,7 +32,7 @@ const inheritStyles = {
         fontSize: CommonStyles.TextSizes.Medium,
         color: CommonStyles.Colors.primaryTextColor,
         marginLeft: 0,
-        marginRight: 0   
+        marginRight: 0
     },
     formLabel: {
         fontSize: CommonStyles.TextSizes.Large,
@@ -70,8 +73,9 @@ export const CreateTrackingStyle = {
 export const AddCustomizationStyle = {
     ...inheritStyles,
     hintText: {
-        fontSize: CommonStyles.TextSizes.Large,
-        color: CommonStyles.Colors.primaryTextColor
+        fontSize: CommonStyles.TextSizes.Medium,
+        color: CommonStyles.Colors.primaryTextColor,
+        textAlign: 'center'
     },
     choiceContainer: {
         ...CommonStyles.containerStyle,
@@ -99,14 +103,61 @@ export const AddCustomizationStyle = {
         fontSize: CommonStyles.TextSizes.Small
     },
     finishButtonColor: CommonStyles.Colors.actionColor,
-    illustrationContainerStyle: {
-        ...CommonStyles.containerStyle,
+    illustrationCard: {
+        alignSelf: 'stretch',
+        margin: CommonStyles.defaultInnerMargin,
+        flex: 1
+    },
+    illustrationCardSide: {
+        ...CommonStyles.containerStyle,        
         ...CommonStyles.tileStyle,
-        alignSelf: 'center',
-        alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1
     },
     illustrationHeaderStyle: {
         color: CommonStyles.Colors.primaryTextColor,
+        fontSize: CommonStyles.TextSizes.Large,
+        marginBottom: CommonStyles.defaultInnerMargin,
+        textAlign: 'center'
+    },
+    illustrationButtonStyle: {
+        position: 'absolute',
+        top: CommonStyles.defaultInnerMargin,
+        right: CommonStyles.defaultInnerMargin,
+        width: 25,
+        height: 25,
+        textAlign: 'center'
+    },
+    illustrationButtonColor: CommonStyles.Colors.activeControlBackgroundColor,
+    ratingStyle: {
+        alignItems: 'center'
+    },
+    metricIllustrationContainer: {
+        ...CommonStyles.containerStyle,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1
+    },
+    metricIllustrationUnitContainer: {
+        ...CommonStyles.containerStyle,
+        borderColor: CommonStyles.Colors.primaryTextColor,
+        borderLeftWidth: 1,
+        alignItems: 'center'
+    },
+    metricTitle: {
+        ...CommonStyles.containerStyle,
+        color: CommonStyles.Colors.primaryTextColor,
         fontSize: CommonStyles.TextSizes.Large
+    },
+    metricValue: {
+        fontSize: CommonStyles.TextSizes.ExtraLarge,
+        color: CommonStyles.Colors.primaryTextColor,        
+        textAlign: 'center'
+    },
+    metricLabelStyle: {
+        fontSize: CommonStyles.TextSizes.Small,
+        color: CommonStyles.Colors.secondaryTextColor
     }
 };

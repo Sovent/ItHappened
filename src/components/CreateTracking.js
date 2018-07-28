@@ -79,28 +79,30 @@ class CreateTracking extends Component {
         </View>
         <View style={Styles.content}>
           <View>
-            <View style={Styles.formLabelContainer}>
-              <Text style={Styles.formLabel}>Name it, e.g. </Text>
-              {this.renderEgLabel.bind(this)()}
+            <View style={Styles.block}>
+              <View style={Styles.formLabelContainer}>
+                <Text style={Styles.formLabel}>Name it, e.g. </Text>
+                {this.renderEgLabel.bind(this)()}
+              </View>
+              <FormInput
+                onChangeText={this.onTrackingNameChanged.bind(this)}
+                ref={input => { this.formInput = input; }}
+                containerStyle={Styles.formInputContainer}
+                inputStyle={Styles.formInput}
+                maxLength={50}
+                value={this.props.trackingName}
+                placeholder='This should answer "What happened?"'
+              />
             </View>
-            <FormInput
-              onChangeText={this.onTrackingNameChanged.bind(this)}
-              ref={input => { this.formInput = input; }}
-              containerStyle={Styles.formInputContainer}
-              inputStyle={Styles.formInput}
-              maxLength={50}
-              value={this.props.trackingName}
-              placeholder='This should answer "What happened?"'
-            />
-          </View>
-          <View>
-            <Text style={Styles.formLabel}>Pick a color for it</Text>
-            <HueSlider
-              style={Styles.colorSlider}
-              gradientSteps={20}
-              value={tinycolor(this.props.trackingColor).toHsl().h}
-              onValueChange={this.onColorChanged.bind(this)}
-            />
+            <View style={Styles.block}>
+              <Text style={Styles.formLabel}>Pick a color for it</Text>
+              <HueSlider
+                style={Styles.colorSlider}
+                gradientSteps={20}
+                value={tinycolor(this.props.trackingColor).toHsl().h}
+                onValueChange={this.onColorChanged.bind(this)}
+              />
+            </View>
           </View>
           <Button
             title='Proceed'

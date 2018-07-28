@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, ButtonGroup, FormInput, Rating } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import CardFlip from 'react-native-card-flip';
 import { ADD_CUSTOMIZATION, TRACKING_LIST } from '../Screens';
 import { updateCreateTrackingForm, createTracking } from '../actions';
 import {
@@ -14,12 +16,13 @@ const customizationsData = {
     header: 'Do you want to rate this event from 1 to 5?',
     hintText: "This is useful in tracking events such as 'Went to the movie' or 'Tasted new dish'",
     illustration: ({ trackingName }) => (
-      <View style={Styles.illustrationContainerStyle}>
+      <View>
         <Text style={Styles.illustrationHeaderStyle}>{trackingName}</Text>
         <Rating
           readonly
-          imageSize={50} 
+          imageSize={50}
           startingValue={3.5}
+          style={Styles.ratingStyle}
         />
       </View>
     )
@@ -27,16 +30,22 @@ const customizationsData = {
   [CustomizationType.METRIC]: {
     header: 'Do you want to measure you event somehow?',
     hintText: 'You can count your daily push-ups or minutes spent practicing guitar',
-    illustration: () => (
-      <View>
-        <Text>Metric illustration</Text>
+    illustration: ({ trackingName, metricMeasurement }) => (
+      <View style={Styles.metricIllustrationContainer}>
+        <Text style={Styles.metricTitle} numberOfLines={2}>
+          {trackingName}
+        </Text>
+        <View style={Styles.metricIllustrationUnitContainer}>
+          <Text style={Styles.metricValue}>5</Text>
+          <Text style={Styles.metricLabelStyle}>{metricMeasurement || 'units'}</Text>
+        </View>
       </View>
     )
   },
   [CustomizationType.COMMENT]: {
     header: 'Would you like to leave comments?',
     hintText: 'You can describe an event or circumstances which it has occured in',
-    illustration: (
+    illustration: () => (
       <View>
         <Text>Comment illustration</Text>
       </View>
@@ -45,7 +54,7 @@ const customizationsData = {
   [CustomizationType.PHOTO]: {
     header: 'How about picturing your event?',
     hintText: 'You\'ll be able to attach a photo, that visualizes the event perfectly',
-    illustration: (
+    illustration: () => (
       <View>
         <Text>Photo illustration</Text>
       </View>
@@ -54,7 +63,7 @@ const customizationsData = {
   [CustomizationType.GEO]: {
     header: 'Do you want to drop geo-tag on the event?',
     hintText: 'If event\'s location matters, you can save it as a part of your event',
-    illustration: (
+    illustration: () => (
       <View>
         <Text>Geo illustration</Text>
       </View>
@@ -128,7 +137,7 @@ class AddCustomization extends Component {
             ref={input => { this.metricInput = input; }}
             containerStyle={Styles.formInputContainer}
             inputStyle={Styles.formInput}
-            maxLength={50}
+            maxLength={20}
             placeholder='millimeters'
             onChangeText={this.onMetricMeasurementChanged.bind(this)}
             value={this.props.metricMeasurement}
@@ -170,8 +179,34 @@ class AddCustomization extends Component {
           <Text style={Styles.headerText}>{this.props.customizationData.header}</Text>
         </View>
         <View style={Styles.content}>
-          <Text style={Styles.hintText}>{this.props.customizationData.hintText}</Text>
-          {this.props.customizationData.illustration(this.props)}
+          <CardFlip
+            style={Styles.illustrationCard}
+            flipDirection='x'
+            ref={card => { this.card = card; }}
+          >
+            <View style={Styles.illustrationCardSide}>
+              {this.props.customizationData.illustration(this.props)}
+              <TouchableWithoutFeedback onPress={() => this.card.flip()}>
+                <Icon
+                  name='information'
+                  size={25}
+                  color={Styles.illustrationButtonColor}
+                  style={Styles.illustrationButtonStyle}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+            <View style={{ ...Styles.illustrationCardSide, transform: [{ rotateX: '180deg' }] }}>
+              <Text style={Styles.hintText}>{this.props.customizationData.hintText}</Text>
+              <TouchableWithoutFeedback onPress={() => this.card.flip()}>
+                <Icon
+                  name='close-circle'
+                  size={25}
+                  color={Styles.illustrationButtonColor}
+                  style={Styles.illustrationButtonStyle}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+          </CardFlip>
           <View>
             <View style={Styles.choiceContainer}>
               <ButtonGroup
