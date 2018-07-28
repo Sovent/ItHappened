@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, ButtonGroup, FormInput, Rating } from 'react-native-elements';
+import { Button, ButtonGroup, FormInput, Rating, Tile } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CardFlip from 'react-native-card-flip';
 import { ADD_CUSTOMIZATION, TRACKING_LIST } from '../Screens';
@@ -10,6 +10,8 @@ import {
   CustomizationType, CustomizationTypes, CustomizationStatus
 } from '../persistence/DTO';
 import { AddCustomizationStyle as Styles } from '../styles/CreateTrackingStyles';
+import SamplePhoto from '../images/photo.jpg';
+import LocationIcon from '../images/location-on-map.png';
 
 const customizationsData = {
   [CustomizationType.RATING]: {
@@ -45,27 +47,32 @@ const customizationsData = {
   [CustomizationType.COMMENT]: {
     header: 'Would you like to leave comments?',
     hintText: 'You can describe an event or circumstances which it has occured in',
-    illustration: () => (
-      <View>
-        <Text>Comment illustration</Text>
+    illustration: ({ trackingName }) => (
+      <View style={Styles.commentaryContainer}>
+        <Text style={Styles.commentaryTitle}>{trackingName}</Text>
+        <Text style={Styles.commentaryLabel}>It happened so sudden</Text>
       </View>
     )
   },
   [CustomizationType.PHOTO]: {
     header: 'How about picturing your event?',
     hintText: 'You\'ll be able to attach a photo, that visualizes the event perfectly',
-    illustration: () => (
-      <View>
-        <Text>Photo illustration</Text>
-      </View>
+    illustration: ({ trackingName }) => (
+      <Tile
+        featured
+        activeOpacity={0}
+        imageSrc={SamplePhoto}
+        title={trackingName}
+      />
     )
   },
   [CustomizationType.GEO]: {
     header: 'Do you want to drop geo-tag on the event?',
     hintText: 'If event\'s location matters, you can save it as a part of your event',
-    illustration: () => (
-      <View>
-        <Text>Geo illustration</Text>
+    illustration: ({ trackingName }) => (
+      <View style={Styles.geoIllustrationContainer}>
+        <Image source={LocationIcon} maxHeight={70} maxWidth={70} />
+        <Text style={Styles.geoIllustrationTitle}>{trackingName}</Text>
       </View>
     )
   }
@@ -155,7 +162,8 @@ class AddCustomization extends Component {
         <Button
           title='Finish'
           onPress={this.onFinishButtonPressed.bind(this)}
-          containerViewStyle={Styles.proceedButtonStyle}
+          containerViewStyle={Styles.finishButton}
+          textStyle={Styles.proceedButtonText}
           backgroundColor={Styles.finishButtonColor}
         />
       );
@@ -167,6 +175,7 @@ class AddCustomization extends Component {
         iconRight={{ name: 'arrow-forward' }}
         onPress={this.onProceedButtonPressed.bind(this)}
         containerViewStyle={Styles.proceedButtonStyle}
+        textStyle={Styles.proceedButtonText}
         backgroundColor={Styles.proceedButtonColor}
       />
     );

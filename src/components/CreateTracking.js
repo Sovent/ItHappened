@@ -107,6 +107,7 @@ class CreateTracking extends Component {
           <Button
             title='Proceed'
             iconRight={{ name: 'arrow-forward' }}
+            textStyle={Styles.proceedButtonText}
             backgroundColor={Styles.proceedButtonColor}
             containerViewStyle={Styles.proceedButtonStyle}
             onPress={this.onProceedButtonPress.bind(this)}

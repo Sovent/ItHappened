@@ -45,6 +45,10 @@ const inheritStyles = {
         borderColor: CommonStyles.Colors.controlsBackgroundColor,
         width: 200,
         alignSelf: 'center'
+    },
+    proceedButtonText: {
+        color: 'white',
+        fontSize: CommonStyles.TextSizes.Medium
     }
 };
 export const CreateTrackingStyle = {
@@ -102,6 +106,10 @@ export const AddCustomizationStyle = {
         color: CommonStyles.Colors.secondaryTextColor,
         fontSize: CommonStyles.TextSizes.Small
     },
+    finishButton: {
+        ...inheritStyles.proceedButtonStyle,
+        borderColor: CommonStyles.Colors.actionColor
+    },
     finishButtonColor: CommonStyles.Colors.actionColor,
     illustrationCard: {
         alignSelf: 'stretch',
@@ -136,20 +144,22 @@ export const AddCustomizationStyle = {
     metricIllustrationContainer: {
         ...CommonStyles.containerStyle,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         flex: 1
     },
     metricIllustrationUnitContainer: {
         ...CommonStyles.containerStyle,
-        borderColor: CommonStyles.Colors.primaryTextColor,
+        borderColor: CommonStyles.Colors.secondaryTextColor,
         borderLeftWidth: 1,
         alignItems: 'center'
     },
     metricTitle: {
         ...CommonStyles.containerStyle,
         color: CommonStyles.Colors.primaryTextColor,
-        fontSize: CommonStyles.TextSizes.Large
+        fontSize: CommonStyles.TextSizes.Large,
+        textAlign: 'right',
+        flexShrink: 1
     },
     metricValue: {
         fontSize: CommonStyles.TextSizes.ExtraLarge,
@@ -159,5 +169,35 @@ export const AddCustomizationStyle = {
     metricLabelStyle: {
         fontSize: CommonStyles.TextSizes.Small,
         color: CommonStyles.Colors.secondaryTextColor
+    },
+    commentaryContainer: {
+        ...CommonStyles.containerStyle
+    },
+    commentaryTitle: {
+        color: CommonStyles.Colors.primaryTextColor,
+        fontSize: CommonStyles.TextSizes.Large,
+        textAlign: 'left'
+    },
+    commentaryLabel: {
+        fontSize: CommonStyles.TextSizes.Small,
+        color: CommonStyles.Colors.secondaryTextColor,
+        fontStyle: 'italic'
+    },
+    geoIllustrationContainer: {
+        ...CommonStyles.containerStyle,
+        flexDirection: 'row',
+        alignItems: 'center',
+        flexBasis: 100
+    },
+    geoIllustrationIcon: {
+        maxHeight: 70,
+        maxWidth: 70
+    },
+    geoIllustrationTitle: {
+        ...CommonStyles.containerStyle,
+        color: CommonStyles.Colors.primaryTextColor,
+        fontSize: CommonStyles.TextSizes.Large,
+        textAlign: 'left',
+        flexShrink: 1
     }
 };
