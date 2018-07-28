@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
+import { MenuProvider } from 'react-native-popup-menu';
 import Router from './Router';
 import reducers from './reducers';
 
@@ -15,7 +16,9 @@ class Root extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <Router />
+        <MenuProvider backHandler>
+          <Router />
+        </MenuProvider>
       </Provider>
     );
   }

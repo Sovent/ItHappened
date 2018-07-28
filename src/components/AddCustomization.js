@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, Image, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Button, ButtonGroup, FormInput, Rating, Tile } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -118,6 +118,9 @@ class AddCustomization extends Component {
       metricMeasurement
     });
     this.props.navigation.navigate(TRACKING_LIST);
+    Alert.alert(
+      'Your tracking is ready',
+      `To record your '${trackingName}' event, just tap on it`);
   }
 
   onMetricMeasurementChanged(text) {

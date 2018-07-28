@@ -5,7 +5,9 @@ import { TRACKINGS } from './Schemas';
 class TrackingRepository {
     async getTrackings() {
         const realm = await Realm;
-        const trackings = realm.objects(TRACKINGS).sorted('lastUpdatedAt', true);
+        const trackings = realm.objects(TRACKINGS)
+            .filtered('isDeleted = false')
+            .sorted('lastUpdatedAt', true);
         return trackings;
     }
 
@@ -20,6 +22,13 @@ class TrackingRepository {
                 lastUpdatedAt: creationDate,
             };
             realm.create(TRACKINGS, trackingToAdd);
+        });
+    }
+
+    async removeTracking(id) {
+        const realm = await Realm;
+        realm.write(() => {
+            realm.create(TRACKINGS, { id, isDeleted: true }, true);
         });
     }
 }

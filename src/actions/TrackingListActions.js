@@ -1,5 +1,5 @@
 import {
-    FETCH_TRACKINGS, CREATE_TRACKING_PROPERTY_CHANGED, TRACKING_CREATED
+    FETCH_TRACKINGS, CREATE_TRACKING_PROPERTY_CHANGED, TRACKING_CREATED, EDIT_TRACKING
 } from './types';
 import { CustomizationTypes, CustomizationStatus } from '../persistence/DTO';
 import TrackingRepository from '../persistence/TrackingRepository';
@@ -46,6 +46,20 @@ export const createTracking = (tracking) => {
         const trackingRepository = new TrackingRepository();
         await trackingRepository.addTracking(trackingToAdd);
         dispatch({ type: TRACKING_CREATED });
+    };
+};
+
+export const deleteTracking = (id) => {
+    return async () => {
+        const trackingRepository = new TrackingRepository();
+        await trackingRepository.removeTracking(id);
+    };
+};
+
+export const editTracking = (tracking) => {
+    return {
+        type: EDIT_TRACKING,
+        payload: tracking
     };
 };
 

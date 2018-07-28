@@ -9,6 +9,7 @@ const trackingSchema = {
         name: 'string',
         color: 'string',
         createdAt: 'date',
+        isDeleted: { type: 'bool', default: false },
         lastUpdatedAt: { type: 'date', indexed: true },
         mandatoryCustomizations: 'int[]',
         optionalCustomizations: 'int[]',

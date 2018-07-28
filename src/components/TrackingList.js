@@ -64,6 +64,7 @@ class TrackingList extends Component {
           keyExtractor={item => item.id}
           ItemSeparatorComponent={this.renderSeparator}
           ListEmptyComponent={this.renderEmptyComponent()}
+          ListFooterComponent={this.renderSeparator}
         />
         {this.renderAddButton.bind(this)()}
       </View>      
@@ -81,21 +82,25 @@ const mapStateToProps = state => {
   //     {
   //       id: '1',
   //       name: 'Vypil chayu',
+  //       color: '#CCAABB',
   //       lastUpdatedAt: new Date()
   //     },
   //     {
   //       id: '2',
   //       name: 'Umer',
+  //       color: '#CCAABB',
   //       lastUpdatedAt: new Date()
   //     },
   //     {
   //       id: '3',
   //       name: 'Vyzhil',
+  //       color: '#CCAABB',
   //       lastUpdatedAt: new Date()
   //     },
   //     {
   //       id: '4',
   //       name: 'Poznal bol',
+  //       color: '#CCAABB',
   //       lastUpdatedAt: new Date()
   //     },
   //     {

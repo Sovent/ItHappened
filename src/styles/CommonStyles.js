@@ -40,3 +40,18 @@ export const tileStyle = {
     marginRight: 2,
     marginBottom: 5
 };
+
+export const menu = {
+    menuOption: {
+        optionWrapper: {
+            ...containerStyle,
+            width: '100%'
+        },
+        optionText: {
+            fontSize: TextSizes.Medium,
+            color: Colors.primaryTextColor,
+            flex: 1,
+            textAlign: 'center'
+        }
+    }
+};
