@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableNativeFeedback, Text } from 'react-native';
+import { View, TouchableHighlight, Text } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import {
@@ -37,7 +37,7 @@ class TrackingItem extends Component {
     render() {
         const item = this.props.children;
         return (
-            <TouchableNativeFeedback
+            <TouchableHighlight
                 onPress={this.onItemPressed.bind(this)}
                 onLongPress={this.onItemLongPressed.bind(this)}
             >
@@ -80,7 +80,7 @@ class TrackingItem extends Component {
                         </MenuOptions>
                     </Menu>
                 </View>
-            </TouchableNativeFeedback>
+            </TouchableHighlight>
         );
     }
 }

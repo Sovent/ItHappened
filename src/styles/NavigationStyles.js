@@ -5,7 +5,8 @@ export const TabbarStyle = {
 };
 
 export const NavigationBarStyle = {
-    backgroundColor: CommonStyles.Colors.controlsBackgroundColor
+    backgroundColor: CommonStyles.Colors.controlsBackgroundColor,
+    borderBottomWidth: 0
 };
 
 export const ActiveTabBackgroundColor = CommonStyles.Colors.activeControlBackgroundColor;

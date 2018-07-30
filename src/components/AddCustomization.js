@@ -153,6 +153,7 @@ class AddCustomization extends Component {
             containerStyle={Styles.formInputContainer}
             inputStyle={Styles.formInput}
             maxLength={20}
+            autoCapitalize='none'
             placeholder='millimeters'
             onChangeText={this.onMetricMeasurementChanged.bind(this)}
             value={this.props.metricMeasurement}

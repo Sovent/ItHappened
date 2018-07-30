@@ -32,13 +32,13 @@ export const tileStyle = {
     borderTopWidth: 0,
     borderLeftWidth: 0,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -2 },
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
     elevation: 2,
     marginLeft: 1,
     marginRight: 2,
-    marginBottom: 5
+    marginBottom: 2
 };
 
 export const menu = {
