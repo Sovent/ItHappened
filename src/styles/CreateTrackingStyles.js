@@ -144,22 +144,25 @@ export const AddCustomizationStyle = {
     metricIllustrationContainer: {
         ...CommonStyles.containerStyle,
         flexDirection: 'row',
-        justifyContent: 'center',
+        flex: 1,
         alignItems: 'center',
-        flex: 1
+        justifyContent: 'space-between',
     },
     metricIllustrationUnitContainer: {
         ...CommonStyles.containerStyle,
-        borderColor: CommonStyles.Colors.secondaryTextColor,
-        borderLeftWidth: 1,
-        alignItems: 'center'
+        flexGrow: 1,
+        flexShrink: 1,
+        flexBasis: '30%'
     },
     metricTitle: {
         ...CommonStyles.containerStyle,
         color: CommonStyles.Colors.primaryTextColor,
         fontSize: CommonStyles.TextSizes.Large,
-        textAlign: 'right',
-        flexShrink: 1
+        borderRightWidth: 1,
+        borderColor: CommonStyles.Colors.secondaryTextColor,
+        flexBasis: '70%',
+        flexGrow: 5,
+        flexShrink: 4
     },
     metricValue: {
         fontSize: CommonStyles.TextSizes.ExtraLarge,
@@ -168,7 +171,8 @@ export const AddCustomizationStyle = {
     },
     metricLabelStyle: {
         fontSize: CommonStyles.TextSizes.Small,
-        color: CommonStyles.Colors.secondaryTextColor
+        color: CommonStyles.Colors.secondaryTextColor,
+        textAlign: 'center'
     },
     commentaryContainer: {
         ...CommonStyles.containerStyle

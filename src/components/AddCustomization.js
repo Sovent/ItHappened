@@ -34,12 +34,17 @@ const customizationsData = {
     hintText: 'You can count your daily push-ups or minutes spent practicing guitar',
     illustration: ({ trackingName, metricMeasurement }) => (
       <View style={Styles.metricIllustrationContainer}>
-        <Text style={Styles.metricTitle} numberOfLines={2}>
+        <Text numberOfLines={3} style={Styles.metricTitle}>
           {trackingName}
         </Text>
         <View style={Styles.metricIllustrationUnitContainer}>
           <Text style={Styles.metricValue}>5</Text>
-          <Text style={Styles.metricLabelStyle}>{metricMeasurement || 'units'}</Text>
+          <Text
+            style={Styles.metricLabelStyle}
+            numberOfLines={1}
+          >
+            {metricMeasurement || 'units'}
+          </Text>
         </View>
       </View>
     )

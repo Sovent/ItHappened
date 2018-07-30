@@ -11,13 +11,8 @@ export const fetchTrackings = () => {
         trackings.addListener((objects) => {
             dispatch({
                 type: FETCH_TRACKINGS,
-                payload: objects
+                payload: objects.snapshot()
             });
-        });
-
-        dispatch({
-            type: FETCH_TRACKINGS,
-            payload: trackings
         });
     };
 };
