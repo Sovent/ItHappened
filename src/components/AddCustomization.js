@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback, Image, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Button, ButtonGroup, FormInput, Rating, Tile } from 'react-native-elements';
+import { Button, Rating, Tile } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import CardFlip from 'react-native-card-flip';
 import { ADD_CUSTOMIZATION, TRACKING_LIST } from '../Screens';
+import CustomizationStatusPicker from './common/CustomizationStatusPicker';
 import { updateCreateTrackingForm, createTracking } from '../actions';
 import {
   CustomizationType, CustomizationTypes, CustomizationStatus
@@ -83,15 +84,6 @@ const customizationsData = {
   }
 };
 
-const StatusHints = {
-  [CustomizationStatus.DISABLED]:
-    'You\'ll not be asked to fill this. You can change this later',
-  [CustomizationStatus.OPTIONAL]:
-    'You\'ll be able to skip filling this. You can change this later',
-  [CustomizationStatus.MANDATORY]:
-    'You won\'t be able to create event without filling this. You can change this later'
-};
-
 class AddCustomization extends Component {
   onProceedButtonPressed() {
     const { currentCustomization, needToShowMetricInput, metricMeasurement } = this.props;
@@ -141,28 +133,6 @@ class AddCustomization extends Component {
         [this.props.currentCustomization]: index
       }
     });
-  }
-
-  renderMetricMeasurementInput() {
-    if (this.props.needToShowMetricInput) {
-      return (
-        <View>
-          <Text style={Styles.formLabel}>Specify units</Text>
-          <FormInput
-            ref={input => { this.metricInput = input; }}
-            containerStyle={Styles.formInputContainer}
-            inputStyle={Styles.formInput}
-            maxLength={20}
-            autoCapitalize='none'
-            placeholder='millimeters'
-            onChangeText={this.onMetricMeasurementChanged.bind(this)}
-            value={this.props.metricMeasurement}
-          />
-        </View>
-      );
-    }
-
-    return <View />;
   }
 
   renderButton() {
@@ -226,20 +196,16 @@ class AddCustomization extends Component {
             </View>
           </CardFlip>
           <View>
-            <View style={Styles.choiceContainer}>
-              <ButtonGroup
-                buttons={['Disabled', 'Optional', 'Required']}
-                onPress={this.changeStatus.bind(this)}
-                containerStyle={Styles.buttonGroupContainerStyle}
-                buttonStyle={Styles.buttonGroupButtonStyle}
-                textStyle={Styles.buttonGroupTextStyle}
-                selectedTextStyle={Styles.buttonGroupSelectedTextStyle}
-                selectedButtonStyle={Styles.buttonGroupSelectedButtonStyle}
-                selectedIndex={this.props.customizationStatus}
-              />
-              {this.renderMetricMeasurementInput()}
-              <Text style={Styles.statusHint}>{StatusHints[this.props.customizationStatus]}</Text>
-            </View>
+            <CustomizationStatusPicker
+              onPress={this.changeStatus.bind(this)}
+              customizationStatus={this.props.customizationStatus}
+              customizationType={this.props}
+              needToShowMetricInput={this.props.needToShowMetricInput} 
+              displayHints
+              inputRef={input => { this.metricInput = input; }}
+              metricMeasurement={this.props.metricMeasurement}
+              onMetricMeasurementChanged={this.onMetricMeasurementChanged.bind(this)}
+            />
             {this.renderButton()}
           </View>
         </View>

@@ -27,7 +27,6 @@ class TrackingItem extends Component {
     onEditPressed() {
         this.props.editTracking(this.props.children);
         this.props.navigation.navigate(EDIT_TRACKING);
-        console.log('edit pressed');
     }
 
     renderHumanReadableDate(item) {

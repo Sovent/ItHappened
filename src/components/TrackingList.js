@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableHighlight, Alert } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import ActionButton from 'react-native-action-button';
 import TrackingItem from './TrackingItem';
@@ -127,7 +127,6 @@ const mapStateToProps = state => {
   //   ]
   // };
 
-  //Alert.alert(`Trackings fetched: ${JSON.stringify(state.trackings)}`);
   return { trackings: state.trackings.list };
 };
 

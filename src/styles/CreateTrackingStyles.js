@@ -80,32 +80,7 @@ export const AddCustomizationStyle = {
         fontSize: CommonStyles.TextSizes.Medium,
         color: CommonStyles.Colors.primaryTextColor,
         textAlign: 'center'
-    },
-    choiceContainer: {
-        ...CommonStyles.containerStyle,
-        paddingHorizontal: 0
-    },
-    buttonGroupContainerStyle: {
-        ...CommonStyles.tileStyle,
-        borderWidth: 1,
-        backgroundColor: 'white',
-        marginBottom: CommonStyles.defaultInnerMargin
-    },
-    buttonGroupTextStyle: {
-        color: CommonStyles.Colors.secondaryTextColor,
-        fontSize: CommonStyles.TextSizes.Medium
-    },
-    buttonGroupSelectedButtonStyle: {
-        backgroundColor: CommonStyles.Colors.activeControlBackgroundColor,
-        borderColor: CommonStyles.Colors.activeControlBackgroundColor
-    },
-    buttonGroupSelectedTextStyle: {
-        color: 'white'
-    },
-    statusHint: {
-        color: CommonStyles.Colors.secondaryTextColor,
-        fontSize: CommonStyles.TextSizes.Small
-    },
+    },    
     finishButton: {
         ...inheritStyles.proceedButtonStyle,
         borderColor: CommonStyles.Colors.actionColor
